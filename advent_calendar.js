@@ -1,9 +1,12 @@
 //Store all the days (1 to 25)
 var daysArray = [];
+//Store whether the doors are open
+var openDoorArray = [];
 
 //Add all the days into an array
 for (var day = 1; day <= 25; day++) {
     daysArray.push(day);
+    openDoorArray.push(false);
 }
 
 //Remove the days from the array in random order and create doors to put them on
@@ -28,7 +31,17 @@ function toggleDoor(doorNo){
         door = document.getElementById("door" + doorNo);
         background = document.getElementById("doorBackground" + doorNo);
         door.classList.toggle("doorOpen");
-        //window.open("/prizes/day" + doorNo);
+        if (openDoorArray[doorNo] == false){
+            setTimeout( 
+                function(){ 
+                    window.open("/prizes/day" + doorNo + "/day" + doorNo + ".html");
+                    openDoorArray[doorNo] = true;
+                }, 500
+            );
+        }
+        else{
+            openDoorArray[doorNo] = false;
+        }
     }
     else {
         window.alert("You can't open it yet!");
@@ -42,7 +55,7 @@ function unlockDoor(doorNo) {
     const today = new Date();
 
     //Uncomment to test different dates
-    //today.setDate(10);
+    //today.setDate(26);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= doorNo && today.getMonth() == 11){
