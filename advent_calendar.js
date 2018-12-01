@@ -6,13 +6,18 @@ var openDoorArray = [];
 //Add all the days into an array
 for (var day = 1; day <= 25; day++) {
     daysArray.push(day);
+}
+
+//Initial door open value
+for (var day = 0; day <= 25; day++) {
     openDoorArray.push(false);
 }
+
 
 console.log(daysArray.toString());
 
 //Remove the days from the array in random order and create doors to put them on
-for (var day = 0; day < 25; day++) {
+for (var day = 1; day <= 25; day++) {
     const dayPosition = random(daysArray.length); //Get a random value from the array
     const dayToUse = daysArray[dayPosition];
     daysArray.splice(dayPosition, 1); //Remove this value from the array
@@ -34,6 +39,8 @@ function toggleDoor(doorNo){
         background = document.getElementById("doorBackground" + doorNo);
         door.classList.toggle("doorOpen");
         if (openDoorArray[doorNo] == false){
+            background.style.backgroundColor = "#333";
+            door.style.backgroundColor = "#aaa";
             setTimeout( 
                 function(){ 
                     const url = "prizes/prize.html?day=" + doorNo;
@@ -45,6 +52,8 @@ function toggleDoor(doorNo){
         }
         else{
             openDoorArray[doorNo] = false;
+            background.style.backgroundColor = "transparent";
+            door.style.backgroundColor = "rgba(136, 136, 136, 30%)";
         }
     }
     else {

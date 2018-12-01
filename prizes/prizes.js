@@ -12,6 +12,7 @@ else {
         // Parse JSON string into object
           json = JSON.parse(response);
           document.body.innerHTML = json[dayNumber-1].message;
+          console.log(json[dayNumber-1].message);
        });
 }
 
@@ -21,7 +22,7 @@ function unlockDoor(dayNo) {
     const today = new Date();
 
     //Uncomment to test different dates
-    //today.setDate(26);
+    today.setDate(26);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= dayNo && today.getMonth() == 11){

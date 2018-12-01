@@ -7,22 +7,26 @@ body {
 
 .doorContainer {
     display: inline-block;
-    /*top, right, bottom, left*/
-    padding: 20px 20px 20px 20px;
+    padding: 20px;
 }
 
 .doorBackground {
-    background-color: #333;
+    background-color: transparent;
     border-radius: 20px;
 }
 
+#doors {
+    text-align: center;
+}
+
 .door {
-    background-color: #d88;
+    background-color: rgba(136, 136, 136, 30%);
+    border: 1px solid #888;
     border-radius: 15px;
 
     width: 100px;
     height: 100px;
-    line-height: 100px;  /*Keep this the same as height for vertical centering*/
+    line-height: 50px;  /*Vertical centering*/
     
     transform-origin: left;
     transition: all 0.5s ease-in-out;
