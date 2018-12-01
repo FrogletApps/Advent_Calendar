@@ -10,6 +10,27 @@ for (var day = 1; day <= 25; day++) {
 } 
 
 function toggleDoor(doorNo){
-    door = document.getElementById("door" + doorNo);
-    door.classList.toggle("doorOpen");
+    if (unlockDoor(doorNo) == true) {
+        door = document.getElementById("door" + doorNo);
+        door.classList.toggle("doorOpen");
+    }
+    else {
+        console.log("Can't open it yet!")
+    }
+}
+
+function unlockDoor(doorNo) {
+    var isOpenable = false;
+    //Get today's date
+    const today = new Date();
+
+    //Uncomment to test different dates
+    //today.setDate(12);
+    //today.setMonth(11); //Remember here that 0 is January
+
+    if (today.getDate() >= doorNo && today.getMonth() == 11){
+        isOpenable = true;
+    }
+
+    return isOpenable;
 }
