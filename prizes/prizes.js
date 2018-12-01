@@ -11,11 +11,9 @@ else {
     loadJSON(function(response) {
         // Parse JSON string into object
           json = JSON.parse(response);
-          console.log(json);
+          document.body.innerHTML = json[dayNumber].message;
        });
 }
-
-console.log(json);
 
 function unlockDoor(dayNo) {
     var isOpenable = false;
@@ -29,7 +27,6 @@ function unlockDoor(dayNo) {
     if (today.getDate() >= dayNo && today.getMonth() == 11){
         isOpenable = true;
     }
-    console.log(isOpenable);
     return isOpenable;
 }
 
