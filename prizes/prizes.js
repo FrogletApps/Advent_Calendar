@@ -11,7 +11,7 @@ else {
     loadJSON(function(response) {
         // Parse JSON string into object
           json = JSON.parse(response);
-          document.body.innerHTML = json[dayNumber].message;
+          document.body.innerHTML = json[dayNumber-1].message;
        });
 }
 

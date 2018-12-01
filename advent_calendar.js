@@ -4,13 +4,15 @@ var daysArray = [];
 var openDoorArray = [];
 
 //Add all the days into an array
-for (var day = 1; day <= 26; day++) {
+for (var day = 1; day <= 25; day++) {
     daysArray.push(day);
     openDoorArray.push(false);
 }
 
+console.log(daysArray.toString());
+
 //Remove the days from the array in random order and create doors to put them on
-for (var day = 1; day <= 25; day++) {
+for (var day = 0; day < 25; day++) {
     const dayPosition = random(daysArray.length); //Get a random value from the array
     const dayToUse = daysArray[dayPosition];
     daysArray.splice(dayPosition, 1); //Remove this value from the array
@@ -57,7 +59,7 @@ function unlockDoor(doorNo) {
     const today = new Date();
 
     //Uncomment to test different dates
-    //today.setDate(26);
+    today.setDate(26);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= doorNo && today.getMonth() == 11){
