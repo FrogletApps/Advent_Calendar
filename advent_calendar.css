@@ -1,5 +1,8 @@
 body {
-    background-color: #f66;
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #aaa;
 }
 
 .doorContainer {
@@ -10,10 +13,12 @@ body {
 
 .doorBackground {
     background-color: #333;
+    border-radius: 20px;
 }
 
 .door {
-    background-color: #f00;
+    background-color: #d88;
+    border-radius: 15px;
 
     width: 100px;
     height: 100px;

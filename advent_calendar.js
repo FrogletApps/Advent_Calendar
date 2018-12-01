@@ -13,9 +13,9 @@ for (var day = 1; day <= 25; day++) {
     daysArray.splice(dayPosition, 1); //Remove this value from the array
 
     document.getElementById('doors').innerHTML += 
-        '<div class=\"doorContainer\">' +
-            '<div class=\"doorBackground\">' +
-                '<div class=\"door\" id=\"door' + dayToUse + '\" onclick=\"toggleDoor(' + dayToUse + ')\">' +
+        '<div class="doorContainer">' +
+            '<div class="doorBackground" id="doorBackground' + dayToUse + '">' +
+                '<div class="door" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
                     '<p>' + dayToUse + '</p>' +
                 '</div>' +
             '</div>' +
@@ -26,10 +26,12 @@ for (var day = 1; day <= 25; day++) {
 function toggleDoor(doorNo){
     if (unlockDoor(doorNo) == true) {
         door = document.getElementById("door" + doorNo);
+        background = document.getElementById("doorBackground" + doorNo);
         door.classList.toggle("doorOpen");
+        //window.open("/prizes/day" + doorNo);
     }
     else {
-        console.log("Can't open it yet!");
+        window.alert("You can't open it yet!");
     }
 }
 
@@ -40,7 +42,7 @@ function unlockDoor(doorNo) {
     const today = new Date();
 
     //Uncomment to test different dates
-    today.setDate(30);
+    //today.setDate(10);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= doorNo && today.getMonth() == 11){
