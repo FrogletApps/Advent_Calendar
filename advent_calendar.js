@@ -4,7 +4,7 @@ var daysArray = [];
 var openDoorArray = [];
 
 //Add all the days into an array
-for (var day = 1; day <= 25; day++) {
+for (var day = 1; day <= 26; day++) {
     daysArray.push(day);
     openDoorArray.push(false);
 }
@@ -34,7 +34,10 @@ function toggleDoor(doorNo){
         if (openDoorArray[doorNo] == false){
             setTimeout( 
                 function(){ 
-                    window.open("/prizes/day" + doorNo + "/day" + doorNo + ".html");
+                    //const url = "prizes/day" + doorNo + "/day" + doorNo + ".html?myVar1=42";
+                    const url = "prizes/prize.html?day=" + doorNo;
+                    console.log(url);
+                    window.open(url);
                     openDoorArray[doorNo] = true;
                 }, 500
             );
