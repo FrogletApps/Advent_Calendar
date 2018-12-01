@@ -1,0 +1,40 @@
+body {
+    background-color: #f66;
+}
+
+.doorContainer {
+    display: inline-block;
+    /*top, right, bottom, left*/
+    padding: 20px 20px 20px 20px;
+}
+
+.doorBackground {
+    background-color: #333;
+}
+
+.door {
+    background-color: #f00;
+
+    width: 100px;
+    height: 100px;
+    line-height: 100px;  /*Keep this the same as height for vertical centering*/
+    
+    transform-origin: left;
+    transition: all 0.5s ease-in-out;
+}
+
+.door p {
+    color: #fff;
+    font-family: "Segoe UI", Roboto, Ubuntu, sans-serif;
+    font-size: 25px;
+    text-align: center;
+}
+
+.doorOpen {
+  transform: perspective(1000px) rotateY(-100deg);
+}
+
+.doorOpen p {
+    transition-delay: 0.25s;
+    visibility: hidden;
+}
