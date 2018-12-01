@@ -34,7 +34,6 @@ function toggleDoor(doorNo){
         if (openDoorArray[doorNo] == false){
             setTimeout( 
                 function(){ 
-                    //const url = "prizes/day" + doorNo + "/day" + doorNo + ".html?myVar1=42";
                     const url = "prizes/prize.html?day=" + doorNo;
                     console.log(url);
                     window.open(url);

@@ -1,12 +1,21 @@
 const urlParams = new URLSearchParams(window.location.search);
 const dayNumber = urlParams.get('day');
-console.log(dayNumber);
-
-if (!unlockDoor(dayNumber)){
-    document.body.innerHTML = "You can't open this yet";
-}
+var json = null;
 
 document.title = "Advent Calendar Day " + dayNumber;
+
+if (!unlockDoor(dayNumber)){
+    document.body.innerHTML = "Nice try, but you can't open this yet";
+}
+else {
+    loadJSON(function(response) {
+        // Parse JSON string into object
+          json = JSON.parse(response);
+          console.log(json);
+       });
+}
+
+console.log(json);
 
 function unlockDoor(dayNo) {
     var isOpenable = false;
@@ -23,3 +32,16 @@ function unlockDoor(dayNo) {
     console.log(isOpenable);
     return isOpenable;
 }
+
+function loadJSON(callback) {   
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'prizes.json', true);
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
