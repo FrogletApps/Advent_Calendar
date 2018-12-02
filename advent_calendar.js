@@ -89,3 +89,18 @@ function debugMode(){
     today.setDate(26);
     today.setMonth(11);
 }
+
+//Ensures that the page can work offline
+UpUp.start({
+    "content-url": "random_names.html",
+    "assets":[
+        "advent_calendar.css",
+        "advent_calendar.js",
+        "background.jpg",
+        "doors.html",
+        "prizes/prize.html",
+        "prizes/prizes.css",
+        "prizes/prizes.js",
+        "prizes/prizes.json"
+    ]
+});

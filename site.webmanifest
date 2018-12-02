@@ -1,0 +1,26 @@
+{
+    "name": "Advent Calendar",
+    "short_name": "Advent Calendar",
+    "lang": "en-GB",
+    "start_url": "doors.html",
+    "theme_color": "#aaa",
+    "background_color": "#aaa",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "https://frogletapps.github.io/Assets/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://frogletapps.github.io/Assets/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "https://frogletapps.github.io/Assets/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
