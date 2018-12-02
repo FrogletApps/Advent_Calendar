@@ -7,5 +7,6 @@ body {
 }
 
 img {
-    height: 300px;
+    max-height: 90vh;
+    max-width: 50vh;
 }
