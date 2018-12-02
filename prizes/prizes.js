@@ -14,13 +14,13 @@ loadPrize();
 
 function loadPrize(){
     if (!unlockDoor(dayNumber)){
-        document.body.innerHTML = "<br><br>Nice try, but you can't open this yet";
+        document.body.innerHTML += "<br><br>Nice try, but you can't open this yet";
     }
     else {
         loadJSON(function(response) {
             // Parse JSON string into object
             json = JSON.parse(response);
-            document.body.innerHTML = json[dayNumber-1].message;
+            document.body.innerHTML += json[dayNumber-1].message;
         });
     }
 }
