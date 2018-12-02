@@ -1,34 +1,53 @@
+//Get the URL parameters
 const urlParams = new URLSearchParams(window.location.search);
+//Get the day to open a certain prize
 const dayNumber = urlParams.get('day');
+//Store the JSON data
 var json = null;
+//Get today's date
+var today = new Date();
 
+//Set the tab title
 document.title = "Advent Calendar Day " + dayNumber;
 
-if (!unlockDoor(dayNumber)){
-    document.body.innerHTML = "Nice try, but you can't open this yet";
+loadPrize();
+
+function loadPrize(){
+    if (!unlockDoor(dayNumber)){
+        document.body.innerHTML = "<br><br>Nice try, but you can't open this yet";
+    }
+    else {
+        loadJSON(function(response) {
+            // Parse JSON string into object
+            json = JSON.parse(response);
+            document.body.innerHTML = json[dayNumber-1].message;
+        });
+    }
+    document.body.innerHTML += '<br><br><input type="button" value="Go back" onclick="closeWindow()">';
 }
-else {
-    loadJSON(function(response) {
-        // Parse JSON string into object
-          json = JSON.parse(response);
-          document.body.innerHTML = json[dayNumber-1].message;
-          console.log(json[dayNumber-1].message);
-       });
+
+function closeWindow(){
+    window.close();
 }
 
 function unlockDoor(dayNo) {
     var isOpenable = false;
-    //Get today's date
-    const today = new Date();
 
     //Uncomment to test different dates
-    today.setDate(26);
+    //today.setDate(26);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= dayNo && today.getMonth() == 11){
         isOpenable = true;
     }
     return isOpenable;
+}
+
+//Use this function to unlock all dates for testing
+function debugMode(){
+    today.setDate(26);
+    today.setMonth(11);
+    loadPrize();
 }
 
 function loadJSON(callback) {   

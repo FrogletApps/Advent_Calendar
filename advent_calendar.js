@@ -2,35 +2,39 @@
 var daysArray = [];
 //Store whether the doors are open
 var openDoorArray = [];
+//Get today's date
+var today = new Date();
 
-//Add all the days into an array
-for (var day = 1; day <= 25; day++) {
-    daysArray.push(day);
-}
+createDoors();
 
-//Initial door open value
-for (var day = 0; day <= 25; day++) {
-    openDoorArray.push(false);
-}
+//Create all the advent calendar doors
+function createDoors(){
+    //Add all the days into an array
+    for (var day = 1; day <= 25; day++) {
+        daysArray.push(day);
+    }
 
+    //Initial door open value
+    for (var day = 0; day <= 25; day++) {
+        openDoorArray.push(false);
+    }
 
-console.log(daysArray.toString());
+    //Remove the days from the array in random order and create doors to put them on
+    for (var day = 1; day <= 25; day++) {
+        const dayPosition = random(daysArray.length); //Get a random value from the array
+        const dayToUse = daysArray[dayPosition];
+        daysArray.splice(dayPosition, 1); //Remove this value from the array
 
-//Remove the days from the array in random order and create doors to put them on
-for (var day = 1; day <= 25; day++) {
-    const dayPosition = random(daysArray.length); //Get a random value from the array
-    const dayToUse = daysArray[dayPosition];
-    daysArray.splice(dayPosition, 1); //Remove this value from the array
-
-    document.getElementById('doors').innerHTML += 
-        '<div class="doorContainer">' +
-            '<div class="doorBackground" id="doorBackground' + dayToUse + '">' +
-                '<div class="door" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
-                    '<p>' + dayToUse + '</p>' +
+        document.getElementById('doors').innerHTML += 
+            '<div class="doorContainer">' +
+                '<div class="doorBackground" id="doorBackground' + dayToUse + '">' +
+                    '<div class="door" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
+                        '<p>' + dayToUse + '</p>' +
+                    '</div>' +
                 '</div>' +
-            '</div>' +
-        '</div>';
-} 
+            '</div>';
+    }
+}
 
 //Toggle the open/close door animation
 function toggleDoor(doorNo){
@@ -44,7 +48,6 @@ function toggleDoor(doorNo){
             setTimeout( 
                 function(){ 
                     const url = "prizes/prize.html?day=" + doorNo;
-                    console.log(url);
                     window.open(url);
                     openDoorArray[doorNo] = true;
                 }, 500
@@ -64,11 +67,9 @@ function toggleDoor(doorNo){
 //Choose when to lock the door
 function unlockDoor(doorNo) {
     var isOpenable = false;
-    //Get today's date
-    const today = new Date();
 
     //Uncomment to test different dates
-    today.setDate(26);
+    //today.setDate(26);
     //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= doorNo && today.getMonth() == 11){
@@ -81,4 +82,10 @@ function unlockDoor(doorNo) {
 //This is because the input includes the 0th value
 function random(limit){
     return Math.round(Math.random()*(limit - 1));
+}
+
+//Use this function to unlock all dates for testing
+function debugMode(){
+    today.setDate(26);
+    today.setMonth(11);
 }
