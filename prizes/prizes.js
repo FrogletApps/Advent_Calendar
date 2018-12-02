@@ -23,7 +23,6 @@ function loadPrize(){
             document.body.innerHTML = json[dayNumber-1].message;
         });
     }
-    document.body.innerHTML += '<br><br><input type="button" value="Go back" onclick="closeWindow()">';
 }
 
 function closeWindow(){

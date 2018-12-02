@@ -48,7 +48,7 @@ function toggleDoor(doorNo){
             setTimeout( 
                 function(){ 
                     const url = "prizes/prize.html?day=" + doorNo;
-                    window.open(url);
+                    window.location.href = url;
                     openDoorArray[doorNo] = true;
                 }, 500
             );
