@@ -50,6 +50,7 @@ function debugMode(){
     loadPrize();
 }
 
+//Based on code from https://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
 function loadJSON(callback) {   
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
