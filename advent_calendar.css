@@ -17,6 +17,8 @@ body {
 
 #doors {
     text-align: center;
+
+    padding: 5%;
 }
 
 .door {
@@ -47,3 +49,12 @@ body {
     transition-delay: 0.25s;
     visibility: hidden;
 }
+
+canvas {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+  }
