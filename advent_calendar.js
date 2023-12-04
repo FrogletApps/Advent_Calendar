@@ -27,12 +27,20 @@ function createDoors() {
 
         document.getElementById('doors').innerHTML +=
             '<div class="doorContainer">' +
-            '<div class="doorBackground" id="doorBackground' + dayToUse + '">' +
+            '<div class="doorBackground" id="doorBackground' + dayToUse + '" onclick="goThroughOpenDoor(' + dayToUse + ')">' +
             '<div class="door" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
             '<p>' + dayToUse + '</p>' +
             '</div>' +
             '</div>' +
             '</div>';
+    }
+}
+
+function goThroughOpenDoor(doorNo){
+    //If a door is open then go to the prize
+    if (openDoorArray[doorNo]){
+        const url = "prizes/prize.html?day=" + doorNo;
+        window.location.href = url;
     }
 }
 
@@ -47,10 +55,9 @@ function toggleDoor(doorNo) {
             door.style.backgroundColor = "#aaa";
             setTimeout(
                 function () {
-                    const url = "prizes/prize.html?day=" + doorNo;
-                    window.location.href = url;
                     openDoorArray[doorNo] = true;
-                }, 500
+                    goThroughOpenDoor(doorNo);
+                }, 1200
             );
         }
         else {

@@ -7,7 +7,7 @@ body {
 
 .doorContainer {
     display: inline-block;
-    padding: 20px;
+    padding: 30px 45px;
 }
 
 .doorBackground {
@@ -30,7 +30,7 @@ body {
     line-height: 50px;  /*Vertical centering*/
     
     transform-origin: left;
-    transition: all 0.5s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .door p {
@@ -41,12 +41,7 @@ body {
 }
 
 .doorOpen {
-  transform: perspective(1000px) rotateY(-100deg);
-}
-
-.doorOpen p {
-    transition-delay: 0.25s;
-    visibility: hidden;
+  transform: perspective(1000px) rotateY(-140deg);
 }
 
 canvas {
