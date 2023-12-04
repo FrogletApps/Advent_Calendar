@@ -16,8 +16,7 @@ body {
 }
 
 #doors {
-    text-align: center;
-
+    /*TODO: Get alignment working*/
     padding: 5%;
 }
 

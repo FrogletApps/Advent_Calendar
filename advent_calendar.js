@@ -203,8 +203,14 @@ class Snowflake {
         this.x += (this.xVel * elapsed) + windSpeed;
         this.y += this.yVel * elapsed;
 
-        //Check the snowflake is off the page
-        if (this.y - this.size > height || this.x + this.size < 0 || this.x - this.size > width) {
+        if (this.x + this.size < 0) {
+            this.x = width;
+        } else if (this.x - this.size > width) {
+            this.x = 0;
+        }
+
+        //Check if snowflakes have dropped off the bottom of the page
+        if (this.y - this.size > height) {
             //Search for it and remove it from the array
             let id = this.snowflakeId;
             let snowflakeIndex = snowflakes.findIndex(x => x.snowflakeId === id);
