@@ -15,8 +15,13 @@ body {
     border-radius: 20px;
 }
 
+.doorBackgroundVisible {
+    background-color: #333;
+}
+
 #doors {
-    /*TODO: Get alignment working*/
+    /*TODO: Get vertical alignment working*/
+    text-align: center;
     padding: 5%;
 }
 
@@ -41,7 +46,8 @@ body {
 }
 
 .doorOpen {
-  transform: perspective(1000px) rotateY(-140deg);
+  transform: perspective(1000px) rotateY(-125deg);
+  background-color: #aaa;
 }
 
 canvas {

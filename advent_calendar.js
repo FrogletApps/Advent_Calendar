@@ -4,6 +4,18 @@ var daysArray = [];
 var openDoorArray = [];
 //Get today's date
 var today = new Date();
+//The html class used when a door is open
+let doorOpenClass = "doorOpen";
+//The html class used when a door background should be visible
+let doorBackgroundVisible = "doorBackgroundVisible";
+
+openDoorArray = getDoorCookie();
+
+//If you can't find a door cookie then make one
+if (openDoorArray.length == 0) {
+    setDoorCookie(openDoorArray);
+    openDoorArray = getDoorCookie();
+} 
 
 createDoors();
 
@@ -14,21 +26,27 @@ function createDoors() {
         daysArray.push(day);
     }
 
-    //Initial door open value
-    for (var day = 0; day <= 25; day++) {
-        openDoorArray.push(false);
-    }
-
     //Remove the days from the array in random order and create doors to put them on
-    for (var day = 1; day <= 25; day++) {
+    for (let i = 1; i <= 25; i++) {
         const dayPosition = random(daysArray.length); //Get a random value from the array
         const dayToUse = daysArray[dayPosition];
         daysArray.splice(dayPosition, 1); //Remove this value from the array
 
+        let thisDoorOpen = "";
+        let thisDoorBackgroundVisible = "";
+
+        if (openDoorArray[dayToUse] == "true") {
+            thisDoorOpen = doorOpenClass;
+            thisDoorBackgroundVisible = doorBackgroundVisible;
+        } else {
+            thisDoorOpen = "";
+            thisDoorBackgroundVisible = "";
+        }
+
         document.getElementById('doors').innerHTML +=
             '<div class="doorContainer">' +
-            '<div class="doorBackground" id="doorBackground' + dayToUse + '" onclick="goThroughOpenDoor(' + dayToUse + ')">' +
-            '<div class="door" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
+            '<div class="doorBackground ' + thisDoorBackgroundVisible + '" id="doorBackground' + dayToUse + '" onclick="goThroughOpenDoor(' + dayToUse + ')">' +
+            '<div class="door ' + thisDoorOpen + '" id="door' + dayToUse + '" onclick="toggleDoor(' + dayToUse + ')">' +
             '<p>' + dayToUse + '</p>' +
             '</div>' +
             '</div>' +
@@ -36,12 +54,42 @@ function createDoors() {
     }
 }
 
-function goThroughOpenDoor(doorNo){
+function getDoorCookie() {
+    let name = "openDoorArray" + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let cookieData = decodedCookie.split(';');
+    for (let i = 0; i < cookieData.length; i++) {
+        let cookie = cookieData[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+            return cookie.substring(name.length, cookie.length).split(",");
+        }
+    }
+    return [];
+}
+
+function goThroughOpenDoor(doorNo) {
     //If a door is open then go to the prize
-    if (openDoorArray[doorNo]){
+    if (openDoorArray[doorNo] == "true"){
         const url = "prizes/prize.html?day=" + doorNo;
         window.location.href = url;
     }
+}
+
+//Create a cookie to store the doors' states
+function setDoorCookie(dataArray) {
+    //If array is blank set all doors as closed    
+    if (dataArray.length == 0) {
+        for (let day = 0; day <= 25; day++) {
+            dataArray.push("false");
+        }
+    }
+
+    let expiryDate = new Date();
+    expiryDate.setTime(expiryDate.getTime() + 5184000000); //60 days in ms
+    document.cookie = "openDoorArray=" + dataArray + ";expires=" + expiryDate.toUTCString() + ";SameSite=Strict; path=/;";
 }
 
 //Toggle the open/close door animation
@@ -49,24 +97,19 @@ function toggleDoor(doorNo) {
     if (unlockDoor(doorNo) == true) {
         door = document.getElementById("door" + doorNo);
         background = document.getElementById("doorBackground" + doorNo);
-        door.classList.toggle("doorOpen");
-        if (openDoorArray[doorNo] == false) {
-            background.style.backgroundColor = "#333";
-            door.style.backgroundColor = "#aaa";
-            setTimeout(
-                function () {
-                    openDoorArray[doorNo] = true;
-                    goThroughOpenDoor(doorNo);
-                }, 1200
-            );
+        door.classList.toggle(doorOpenClass);
+        background.classList.toggle(doorBackgroundVisible);
+        if (openDoorArray[doorNo] == "false") {
+            setTimeout(function() {
+                openDoorArray[doorNo] = "true";
+                setDoorCookie(openDoorArray); //This needs to run before you go through the door
+                goThroughOpenDoor(doorNo);
+            }, 1200);
+        } else {
+            openDoorArray[doorNo] = "false";
+            setDoorCookie(openDoorArray);
         }
-        else {
-            openDoorArray[doorNo] = false;
-            background.style.backgroundColor = "transparent";
-            door.style.backgroundColor = "rgba(136, 136, 136, 30%)";
-        }
-    }
-    else {
+    } else {
         window.alert("You can't open it yet!");
     }
 }
@@ -74,10 +117,6 @@ function toggleDoor(doorNo) {
 //Choose when to lock the door
 function unlockDoor(doorNo) {
     var isOpenable = false;
-
-    //Uncomment to test different dates
-    //today.setDate(26);
-    //today.setMonth(11); //Remember here that 0 is January
 
     if (today.getDate() >= doorNo && today.getMonth() == 11) {
         isOpenable = true;
@@ -94,23 +133,9 @@ function random(limit) {
 //Use this function to unlock all dates for testing
 function debugMode() {
     today.setDate(26);
-    today.setMonth(11);
+    today.setMonth(11); //Remember here that 0 is January
 }
 
-//Ensures that the page can work offline
-UpUp.start({
-    "content-url": "random_names.html",
-    "assets": [
-        "advent_calendar.css",
-        "advent_calendar.js",
-        "background.jpg",
-        "doors.html",
-        "prizes/prize.html",
-        "prizes/prizes.css",
-        "prizes/prizes.js",
-        "prizes/prizes.json"
-    ]
-});
 
 //Snowflake code based on:
 //https://codepen.io/HektorW/pen/ZBryeV/
@@ -253,3 +278,19 @@ window.addEventListener('resize', resize); //Check to see if the canvas has been
 window.addEventListener('blur', pause); //Pause if the window is out of focus
 window.addEventListener('focus', resume); //Resume when the window is back in focus
 init();
+
+
+//Ensures that the page can work offline
+UpUp.start({
+    "content-url": "random_names.html",
+    "assets": [
+        "advent_calendar.css",
+        "advent_calendar.js",
+        "background.jpg",
+        "doors.html",
+        "prizes/prize.html",
+        "prizes/prizes.css",
+        "prizes/prizes.js",
+        "prizes/prizes.json"
+    ]
+});
