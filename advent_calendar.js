@@ -28,7 +28,7 @@ function createDoors() {
 
     //Remove the days from the array in random order and create doors to put them on
     for (let i = 1; i <= 25; i++) {
-        const dayPosition = random(0, daysArray.length); //Get a random value from the array
+        const dayPosition = Math.round(random(0, daysArray.length - 1)); //Get a random value from the array
         const dayToUse = daysArray[dayPosition];
         daysArray.splice(dayPosition, 1); //Remove this value from the array
 
@@ -126,7 +126,7 @@ function unlockDoor(doorNo) {
 
 //Generates a random number between min and max
 function random(min, max) {
-    return Math.round(min + Math.random() * (max - min));
+    return min + Math.random() * (max - min);
 }
 
 //Use this function to unlock all dates for testing
