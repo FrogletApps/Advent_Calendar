@@ -209,9 +209,9 @@ class Snowflake {
         this.spawn();
     }
 
-    spawn(anyY = false) {
-        this.y = anyY === true ? rand(-50, height + 50) : rand(-50, -10);
+    spawn() {
         this.x = random(0, width);
+        this.y = 0;
         this.xVel = 0;
         this.yVel = random(.04, .06);
         this.size = random(7, 15);
