@@ -266,8 +266,8 @@ class Snowflake {
 function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-    maxSnowflakes = (height * width);
     //console.log("Max snowflakes: " + maxSnowflakes);
+    maxSnowflakes = (width/10) * (height/100);
 }
 
 window.addEventListener('resize', resize); //Check to see if the canvas has been resized
