@@ -7,7 +7,7 @@ body {
 
 .doorContainer {
     display: inline-block;
-    padding: 30px 45px;
+    padding: 20px 35px;
 }
 
 .doorBackground {
@@ -30,9 +30,9 @@ body {
     border: 1px solid #888;
     border-radius: 15px;
 
-    width: 100px;
-    height: 100px;
-    line-height: 50px;  /*Vertical centering*/
+    width: 80px;
+    height: 80px;
+    line-height: 30px;  /*Vertical centering*/
     
     transform-origin: left;
     transition: all 1s ease-in-out;
