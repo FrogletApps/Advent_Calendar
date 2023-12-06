@@ -28,7 +28,7 @@ function createDoors() {
 
     //Remove the days from the array in random order and create doors to put them on
     for (let i = 1; i <= 25; i++) {
-        const dayPosition = random(daysArray.length); //Get a random value from the array
+        const dayPosition = random(0, daysArray.length); //Get a random value from the array
         const dayToUse = daysArray[dayPosition];
         daysArray.splice(dayPosition, 1); //Remove this value from the array
 
@@ -124,10 +124,9 @@ function unlockDoor(doorNo) {
     return isOpenable;
 }
 
-//Generates a random number between 0 and (limit - 1)
-//This is because the input includes the 0th value
-function random(limit) {
-    return Math.round(Math.random() * (limit - 1));
+//Generates a random number between min and max
+function random(min, max) {
+    return Math.round(min + Math.random() * (max - min));
 }
 
 //Use this function to unlock all dates for testing
@@ -169,15 +168,15 @@ function render(now) {
 
     ctx.clearRect(0, 0, width, height);
     //1/4 chance of generating a new snowflake if we haven't hit the limit
-    if (snowflakes.length < maxSnowflakes && rand(0, 1) < 0.25) {
+    if (snowflakes.length < maxSnowflakes && random(0, 1) < 0.25) {
         snowflakes.push(new Snowflake());
     }
-    //console.log("Snowflake Count: " + snowflakes.length);
+    console.log("Snowflake Count: " + snowflakes.length);
 
     snowflakes.forEach(snowflake => snowflake.update(elapsed));
 
     //Only check every 1/20 ticks (ish)
-    if (rand(0, 1) < 0.05) {
+    if (random(0, 1) < 0.05) {
         //Allow a bit of room to try and prevent hunting
         if (windSpeedTarget > windSpeed + 0.01) {
             windSpeed += 0.01
@@ -189,9 +188,9 @@ function render(now) {
 
     //Add a horizontal force to move all the snowflakes
     if (windTimer >= windTimerTarget) {
-        windSpeedTarget = rand(-0.2, 0.2);
+        windSpeedTarget = random(-0.2, 0.2);
         windTimer = 0;
-        windTimerTarget = rand(700, 2000);
+        windTimerTarget = random(700, 2000);
         //console.log("Next change: " + windTimerTarget + " windSpeedTarget: " + windSpeedTarget);
     }
     windTimer++;
@@ -211,12 +210,12 @@ class Snowflake {
     }
 
     spawn(anyY = false) {
-        this.x = rand(0, width);
         this.y = anyY === true ? rand(-50, height + 50) : rand(-50, -10);
+        this.x = random(0, width);
         this.xVel = 0;
-        this.yVel = rand(.04, .06);
-        this.size = rand(7, 15);
-        this.sizeOsc = rand(.01, .5);
+        this.yVel = random(.04, .06);
+        this.size = random(7, 15);
+        this.sizeOsc = random(.01, .5);
         this.snowflakeId = snowflakeCounter;
 
         snowflakeCounter++;
@@ -224,8 +223,8 @@ class Snowflake {
 
     update(elapsed) {
         //Only check every 1/5 ticks (ish)
-        if (rand(0, 1) < 0.2) {
-            const xForce = rand(-0.002, 0.002);
+        if (random(0, 1) < 0.2) {
+            const xForce = random(-0.002, 0.002);
             //Make sure xVel isn't too fast
             if (this.xVel > -0.02 && this.xVel < 0.02) {
                 this.xVel += xForce;
@@ -262,9 +261,6 @@ class Snowflake {
         ctx.fillStyle = ctx.strokeStyle = '#fff';
     }
 }
-
-//Generate a random number
-const rand = (min, max) => min + Math.random() * (max - min);
 
 //Stuff to do when the canvas is resized
 function resize() {
